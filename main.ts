@@ -21,6 +21,12 @@ if (chars.length < 1 || chars.length > 140) {
 if (/[\r\n]/.test(ENTRY)) {
   throw new Error("entry must be a single line");
 }
+if (ENTRY !== ENTRY.trim()) {
+  throw new Error("entry must not have leading or trailing whitespace");
+}
+if (/\s{2,}/.test(ENTRY)) {
+  throw new Error("entry must not contain doubled whitespace");
+}
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR || "/output";
 mkdirSync(outDir, { recursive: true });
